@@ -1,0 +1,46 @@
+version: "2.1"
+services:
+  grafana:
+    build: ./grafana
+    container_name: git_grafana
+    restart: always
+    ports:
+      - "80:3000/tcp"
+    volumes:
+      - "./grafana/etc/grafana:/etc/grafana"
+      - "./grafana/usr/share/grafana:/usr/share/grafana"
+    networks:
+      network_1:
+        ipv4_address: 10.6.0.2
+  influx:
+    build: ./influx
+    container_name: git_influx
+    restart: always
+    ports:
+      - "8086:8086/tcp"
+    volumes:
+      - "./influx/etc/influxdb:/etc/influxdb"
+      - "./influx/var/lib/influxdb:/var/lib/influxdb"
+    networks:
+      network_1:
+        ipv4_address: 10.6.0.3
+  telegraf:
+    build: ./telegraf
+    container_name: git_telegraf
+    restart: always
+    volumes:
+      - "./telegraf/etc/telegraf:/etc/telegraf"
+    networks:
+      network_1:
+        ipv4_address: 10.6.0.4
+
+networks:
+  network_1:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: "monitor0"
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.6.0.0/24
+        gateway: 10.6.0.1

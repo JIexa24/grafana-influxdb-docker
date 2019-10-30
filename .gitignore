@@ -1,0 +1,5 @@
+grafana/etc/
+grafana/usr/
+influx/etc/
+influx/var/
+telegraf/etc/

@@ -1,8 +1,8 @@
 FROM debian:latest
 MAINTAINER Alexey Romanuta R9ODT
 
-ENV TELEGRAF_VERSION 1.10.4
-ENV ARCH=armhf
+ENV TELEGRAF_VERSION 1.5.3
+ENV ARCH=amd64
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install snmp wget curl -y

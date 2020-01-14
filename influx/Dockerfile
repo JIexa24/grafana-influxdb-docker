@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 MAINTAINER Alexey Romanuta R9ODT
 
 RUN apt-get update

@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 MAINTAINER Alexey Romanuta R9ODT
 
 ARG GRAFANA_URL="https://dl.grafana.com/oss/release/"

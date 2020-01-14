@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 MAINTAINER Alexey Romanuta R9ODT
 
 ENV TELEGRAF_VERSION 1.5.3

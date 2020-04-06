@@ -1,5 +1,5 @@
 FROM debian:buster
-MAINTAINER Alexey Romanuta R9ODT
+LABEL Author="Alexey Romanuta R9ODT"
 
 ENV TELEGRAF_VERSION 1.5.3
 ENV ARCH=amd64

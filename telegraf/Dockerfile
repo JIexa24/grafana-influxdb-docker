@@ -1,7 +1,7 @@
 FROM debian:buster
 LABEL Author="Alexey Romanuta R9ODT"
 
-ENV TELEGRAF_VERSION 1.5.3
+ENV TELEGRAF_VERSION 1.14.1
 ENV ARCH=amd64
 
 RUN apt-get update

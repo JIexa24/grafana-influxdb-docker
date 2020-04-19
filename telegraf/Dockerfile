@@ -4,8 +4,7 @@ LABEL Author="Alexey Romanuta R9ODT"
 ENV TELEGRAF_VERSION 1.14.1
 ENV ARCH=amd64
 
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install snmp wget curl -y
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install snmp wget curl -y
 
 RUN wget --no-verbose https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb && \
     dpkg -i telegraf_${TELEGRAF_VERSION}-1_${ARCH}.deb && \

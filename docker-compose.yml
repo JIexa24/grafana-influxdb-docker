@@ -7,7 +7,6 @@ services:
     ports:
       - "82:3000/tcp"
     volumes:
-      - "./grafana/etc/grafana:/etc/grafana"
       - "./grafana/usr/share/grafana/conf:/usr/share/grafana/conf"
       - "./grafana/usr/share/grafana/data:/usr/share/grafana/data"
     networks:

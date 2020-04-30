@@ -3,6 +3,7 @@ services:
   grafana:
     build: ./grafana
     container_name: git_grafana
+    hostname: grafana
     restart: always
     ports:
       - "82:3000/tcp"
@@ -15,6 +16,7 @@ services:
   influx:
     build: ./influx
     container_name: git_influx
+    hostname: influx
     restart: always
     ports:
       - "8086:8086/tcp"
@@ -27,6 +29,7 @@ services:
   telegraf:
     build: ./telegraf
     container_name: git_telegraf
+    hostname: telegraf
     restart: always
     volumes:
       - "./telegraf/etc/telegraf:/etc/telegraf"

@@ -4,9 +4,17 @@ LABEL Author="Alexey Romanuta R9ODT"
 ARG GRAFANA_VERSION=6.7.1
 ARG GRAFANA_URL="https://dl.grafana.com/oss/release/"
 ARG GRAFANA_PACK="grafana_${GRAFANA_VERSION}_amd64.deb"
+ENTRYPOINT ["/bin/bash"]
+
+ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
+    GRAFANA_DATA="/usr/share/grafana/data" \
+    GRAFANA_HOME="/usr/share/grafana" \
+    GRAFANA_LOGS="/usr/share/grafana/data/log" \
+    GRAFANA_PLUGINS="/usr/share/grafana/data/plugins" \
+    GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning"
 
 RUN groupadd -g 1000 grafana && \
-    useradd -m -d /usr/share/grafana -s /usr/sbin/nologin -g 1000 -u 1000 grafana
+    useradd -m -d ${GRAFANA_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 grafana
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     tar \
     libfontconfig \
@@ -15,13 +23,12 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     wget \
     sudo \
     procps
-RUN wget --no-verbose $GRAFANA_URL$GRAFANA_PACK && \
-    dpkg -i $GRAFANA_PACK && rm -f $GRAFANA_PACK
+RUN wget --no-verbose ${GRAFANA_URL}${GRAFANA_PACK} && \
+    dpkg -i ${GRAFANA_PACK} && rm -f ${GRAFANA_PACK}
 
 EXPOSE 3000
-WORKDIR /usr/share/grafana
+WORKDIR ${GRAFANA_HOME}
 USER grafana
 COPY ./start.sh /bin/start.sh
 
-ENTRYPOINT ["/bin/bash"]
 CMD ["/bin/start.sh"]

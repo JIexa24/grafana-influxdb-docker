@@ -1,9 +1,9 @@
 FROM debian:buster
 LABEL Author="Alexey Romanuta R9ODT"
 
-ARG GRAFANA_VERSION=6.7.1
+ARG IMAGE_VERSION
 ARG GRAFANA_URL="https://dl.grafana.com/oss/release/"
-ARG GRAFANA_PACK="grafana_${GRAFANA_VERSION}_amd64.deb"
+ARG GRAFANA_PACK="grafana_${IMAGE_VERSION}_amd64.deb"
 ENTRYPOINT ["/bin/bash"]
 
 ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \

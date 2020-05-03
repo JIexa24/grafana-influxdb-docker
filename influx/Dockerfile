@@ -1,8 +1,7 @@
 FROM debian:buster
 LABEL Author="Alexey Romanuta R9ODT"
 
-ARG INFLUX_VERSION=1.6.4-1+b22
-
+ARG IMAGE_VERSION
 RUN groupadd -g 1000 influxdb && \
     useradd -m -d /var/lib/influxdb -s /usr/sbin/nologin -g 1000 -u 1000 influxdb
 RUN apt-get update && \
@@ -13,8 +12,8 @@ RUN apt-get update && \
     procps
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    influxdb=${INFLUX_VERSION} \
-    influxdb-client=${INFLUX_VERSION}
+    influxdb=${IMAGE_VERSION} \
+    influxdb-client=${IMAGE_VERSION}
 
 EXPOSE 8086
 WORKDIR /var/lib/influxdb

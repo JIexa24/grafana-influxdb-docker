@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   grafana:
-    build: ./grafana
+    image: r9odt/grafana:${grafana_version}
     container_name: git_grafana
     hostname: grafana
     restart: always
@@ -14,7 +14,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.2
   influx:
-    build: ./influx
+    image: r9odt/influx:${influx_version}
     container_name: git_influx
     hostname: influx
     restart: always
@@ -27,7 +27,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.3
   telegraf:
-    build: ./telegraf
+    image: r9odt/telegraf:${telegraf_version}
     container_name: git_telegraf
     hostname: telegraf
     restart: always

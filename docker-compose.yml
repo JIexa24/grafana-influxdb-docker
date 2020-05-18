@@ -5,6 +5,8 @@ services:
     container_name: git_grafana
     hostname: grafana
     restart: always
+    environment:
+      GRAFANA_INSTALL_PLUGINS: vertamedia-clickhouse-datasource
     ports:
       - "82:3000/tcp"
     volumes:

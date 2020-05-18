@@ -1,11 +1,12 @@
-FROM debian:buster
+FROM ubuntu:bionic
 LABEL Author="Alexey Romanuta R9ODT"
 
 ARG IMAGE_VERSION
 ENTRYPOINT ["/bin/bash"]
 
-RUN groupadd -g 1000 influxdb && \
-    useradd -m -d /var/lib/influxdb -s /usr/sbin/nologin -g 1000 -u 1000 influxdb
+RUN groupadd -g 1000 mysql && \
+    useradd -m -d /var/lib/mysql -s /usr/sbin/nologin -g 1000 -u 1000 mysql
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     sudo \
@@ -14,12 +15,11 @@ RUN apt-get update && \
     procps
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    influxdb=${IMAGE_VERSION} \
-    influxdb-client=${IMAGE_VERSION}
+    mariadb-server=${IMAGE_VERSION}
 
-EXPOSE 8086
-WORKDIR /var/lib/influxdb
-USER influxdb
+EXPOSE 3036
+WORKDIR /var/lib/mysql
+USER mysql
 COPY ./start.sh /bin/start.sh
 
 CMD ["/bin/start.sh"]

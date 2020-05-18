@@ -4,7 +4,6 @@ LABEL Author="Alexey Romanuta R9ODT"
 ARG IMAGE_VERSION
 ARG GRAFANA_URL="https://dl.grafana.com/oss/release/"
 ARG GRAFANA_PACK="grafana_${IMAGE_VERSION}_amd64.deb"
-ENTRYPOINT ["/bin/bash"]
 
 ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
     GRAFANA_DATA="/usr/share/grafana/data" \
@@ -12,6 +11,8 @@ ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
     GRAFANA_LOGS="/usr/share/grafana/data/log" \
     GRAFANA_PLUGINS="/usr/share/grafana/data/plugins" \
     GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning"
+
+ENTRYPOINT ["/bin/bash"]
 
 RUN groupadd -g 1000 grafana && \
     useradd -m -d ${GRAFANA_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 grafana

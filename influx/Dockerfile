@@ -2,7 +2,7 @@ FROM debian:buster
 LABEL Author="Alexey Romanuta R9ODT"
 
 ARG IMAGE_VERSION
-ENTRYPOINT ["/bin/bash"]
+# ENTRYPOINT ["/bin/bash"]
 
 RUN groupadd -g 1000 influxdb && \
     useradd -m -d /var/lib/influxdb -s /usr/sbin/nologin -g 1000 -u 1000 influxdb
@@ -22,5 +22,5 @@ WORKDIR /var/lib/influxdb
 USER influxdb
 COPY ./start.sh /bin/start.sh
 
-CMD ["/bin/start.sh"]
+CMD ["/bin/bash", "/bin/start.sh"]
 

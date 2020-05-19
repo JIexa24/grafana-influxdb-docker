@@ -4,7 +4,7 @@ LABEL Author="Alexey Romanuta R9ODT"
 ARG TELEGRAF_URL_PREFIX="https://dl.influxdata.com/telegraf/releases/"
 ARG IMAGE_VERSION
 ARG ARCH="amd64"
-ENTRYPOINT ["/bin/bash"]
+# ENTRYPOINT ["/bin/bash"]
 
 RUN groupadd -g 1000 telegraf && \
     useradd -m -d /etc/telegraf -s /usr/sbin/nologin -g 1000 -u 1000 telegraf
@@ -23,4 +23,4 @@ WORKDIR /etc/telegraf
 USER telegraf
 COPY ./start.sh /bin/start.sh
 
-CMD ["/bin/start.sh"]
+CMD ["/bin/bash", "/bin/start.sh"]

@@ -2,7 +2,7 @@ FROM ubuntu:bionic
 LABEL Author="Alexey Romanuta R9ODT"
 
 ARG IMAGE_VERSION
-ENTRYPOINT ["/bin/bash"]
+# ENTRYPOINT ["/bin/bash"]
 
 RUN groupadd -g 1000 mysql && \
     useradd -m -d /var/lib/mysql -s /usr/sbin/nologin -g 1000 -u 1000 mysql
@@ -22,5 +22,5 @@ WORKDIR /var/lib/mysql
 USER mysql
 COPY ./start.sh /bin/start.sh
 
-CMD ["/bin/start.sh"]
+CMD ["/bin/bash", "/bin/start.sh"]
 

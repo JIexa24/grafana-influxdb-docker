@@ -12,6 +12,9 @@ services:
     volumes:
       - "./grafana/usr/share/grafana/conf:/usr/share/grafana/conf"
       - "./grafana/usr/share/grafana/data:/usr/share/grafana/data"
+    links: 
+      - influx:influxdb
+      - grafana_mariadb:grafana_mariadb
     networks:
       network_1:
         ipv4_address: 10.6.0.2
@@ -35,6 +38,8 @@ services:
     restart: always
     volumes:
       - "./telegraf/etc/telegraf:/etc/telegraf"
+    links: 
+      - influx:influxdb
     networks:
       network_1:
         ipv4_address: 10.6.0.4

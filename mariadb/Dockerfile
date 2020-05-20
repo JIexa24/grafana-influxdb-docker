@@ -20,7 +20,10 @@ RUN apt-get update && \
 EXPOSE 3036
 WORKDIR /var/lib/mysql
 USER mysql
-COPY ./start.sh /bin/start.sh
 
-CMD ["/bin/bash", "/bin/start.sh"]
+COPY ./docker-entrypoint.sh /bin/docker-entrypoint.sh
+ENTRYPOINT ["/bin/docker-entrypoint.sh"]
+
+COPY ./start.sh /bin/start.sh
+CMD ["/bin/start.sh"]
 

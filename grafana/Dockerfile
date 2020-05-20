@@ -12,7 +12,6 @@ ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
     GRAFANA_PLUGINS="/usr/share/grafana/data/plugins" \
     GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning"
 
-# ENTRYPOINT ["/bin/bash"]  
 
 RUN groupadd -g 1000 grafana && \
     useradd -m -d ${GRAFANA_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 grafana
@@ -30,7 +29,9 @@ RUN wget --no-verbose ${GRAFANA_URL}${GRAFANA_PACK} && \
 EXPOSE 3000
 WORKDIR ${GRAFANA_HOME}
 USER grafana
+
+COPY ./docker-entrypoint.sh /bin/docker-entrypoint.sh
+ENTRYPOINT ["/bin/docker-entrypoint.sh"]
+
 COPY ./start.sh /bin/start.sh
-
-
-CMD ["/bin/bash", "/bin/start.sh"]
+CMD ["/bin/start.sh"]

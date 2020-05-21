@@ -10,25 +10,28 @@ ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
     GRAFANA_HOME="/usr/share/grafana" \
     GRAFANA_LOGS="/usr/share/grafana/data/log" \
     GRAFANA_PLUGINS="/usr/share/grafana/data/plugins" \
-    GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning"
-
+    GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning" \
+    GRAFANA_VERSION=${IMAGE_VERSION} \
+    GOSU_VERSION=1.12
 
 RUN groupadd -g 1000 grafana && \
     useradd -m -d ${GRAFANA_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 grafana
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    tar \
     libfontconfig \
-    curl \
     ca-certificates \
     wget \
-    sudo \
     procps
+RUN apt-get update && \
+	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+	wget --no-verbose -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+	chmod +x /usr/local/bin/gosu; \
+	gosu --version; \
+	gosu nobody true
 RUN wget --no-verbose ${GRAFANA_URL}${GRAFANA_PACK} && \
     dpkg -i ${GRAFANA_PACK} && rm -f ${GRAFANA_PACK}
 
 EXPOSE 3000
 WORKDIR ${GRAFANA_HOME}
-USER grafana
 
 COPY ./docker-entrypoint.sh /bin/docker-entrypoint.sh
 ENTRYPOINT ["/bin/docker-entrypoint.sh"]

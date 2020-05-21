@@ -10,4 +10,9 @@ if [ ! -z "${GRAFANA_INSTALL_PLUGINS}" ]; then
   done
 fi
 
+if [ "$1" = "/bin/start.sh" ]; then
+  if [ "$(id -u)" = "0" ]; then
+    exec gosu grafana "$@"
+  fi
+fi
 exec "$@"

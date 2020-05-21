@@ -34,7 +34,7 @@ services:
   telegraf:
     image: r9odt/telegraf:${telegraf_version}
     container_name: git_telegraf
-    hostname: telegraf
+    hostname: docker-telegraf
     restart: always
     volumes:
       - "./telegraf/etc/telegraf:/etc/telegraf"
@@ -48,6 +48,10 @@ services:
     container_name: git_grafana_mariadb
     hostname: mariadb
     restart: always
+    volumes:
+      - "./mariadb/etc/mysql/mariadb.cnf:/etc/mysql/mariadb.cnf"
+      - "./mariadb/etc/mysql/mariadb.conf.d:/etc/mysql/mariadb.conf.d"
+      - "./mariadb/var/lib/mysql:/var/lib/mysql"
     networks:
       network_1:
         ipv4_address: 10.6.0.5

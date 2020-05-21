@@ -8,7 +8,7 @@ ENV TELEGRAF_VERSION=${IMAGE_VERSION} \
     GOSU_VERSION=1.12
 
 RUN groupadd -g 1000 telegraf && \
-    useradd -m -d /etc/telegraf -s /bin/sh -g 1000 -u 1000 telegraf
+    useradd -m -d /etc/telegraf -s /usr/sbin/nologin -g 1000 -u 1000 telegraf
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ca-certificates \

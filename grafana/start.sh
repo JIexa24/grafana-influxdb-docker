@@ -1,21 +1,21 @@
 #!/bin/sh
 
-if [ ! -z "${GRAFANA_INSTALL_PLUGINS}" ]; then
+if [ ! -z "${GF_INSTALL_PLUGINS}" ]; then
   OLDIFS=$IFS
   IFS=','
-  for plugin in ${GRAFANA_INSTALL_PLUGINS}; do
+  for plugin in ${GF_INSTALL_PLUGINS}; do
     IFS=$OLDIFS
-    grafana-cli --pluginsDir "${GF_PLUGIN_DIR}" --config="$GRAFANA_CONFIG" \
+    grafana-cli --pluginsDir "${GF_PLUGIN_DIR}" --config="$GF_CONFIG" \
     plugins install ${plugin}
   done
 fi
 
 exec /usr/sbin/grafana-server                               \
-  --homepath="$GRAFANA_HOME"                                \
-  --config="$GRAFANA_CONFIG"                                \
+  --homepath="$GF_HOME"                                \
+  --config="$GF_CONFIG"                                \
   "$@"                                                      \
   cfg:default.log.mode="console"                            \
-  cfg:default.paths.data="$GRAFANA_DATA"                    \
-  cfg:default.paths.logs="$GRAFANA_LOGS"                    \
+  cfg:default.paths.data="$GF_DATA"                    \
+  cfg:default.paths.logs="$GF_LOGS"                    \
   cfg:default.paths.plugins="$GF_PLUGIN_DIR"              \
-  cfg:default.paths.provisioning="$GRAFANA_PROVISIONING"
+  cfg:default.paths.provisioning="$GF_PROVISIONING"

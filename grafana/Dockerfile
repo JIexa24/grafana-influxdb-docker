@@ -5,18 +5,18 @@ ARG IMAGE_VERSION
 ARG GRAFANA_URL="https://dl.grafana.com/oss/release/"
 ARG GRAFANA_PACK="grafana_${IMAGE_VERSION}_amd64.deb"
 
-ENV GRAFANA_CONFIG="/usr/share/grafana/conf/defaults.ini" \
-    GRAFANA_DATA="/usr/share/grafana/data" \
-    GRAFANA_HOME="/usr/share/grafana" \
-    GRAFANA_LOGS="/usr/share/grafana/data/log" \
+ENV GF_CONFIG="/usr/share/grafana/conf/defaults.ini" \
+    GF_DATA="/usr/share/grafana/data" \
+    GF_HOME="/usr/share/grafana" \
+    GF_LOGS="/usr/share/grafana/data/log" \
     GF_PLUGIN_DIR="/usr/share/grafana/data/plugins" \
-    GRAFANA_PROVISIONING="/usr/share/grafana/conf/provisioning" \
+    GF_PROVISIONING="/usr/share/grafana/conf/provisioning" \
     GRAFANA_VERSION=${IMAGE_VERSION} \
     IMAGE_USER=grafana \
     GOSU_VERSION=1.12
 
 RUN groupadd -g 1000 ${IMAGE_USER} && \
-    useradd -m -d ${GRAFANA_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 ${IMAGE_USER}
+    useradd -m -d ${GF_HOME} -s /usr/sbin/nologin -g 1000 -u 1000 ${IMAGE_USER}
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libfontconfig \
     ca-certificates \
@@ -32,7 +32,7 @@ RUN wget --no-verbose ${GRAFANA_URL}${GRAFANA_PACK} && \
     dpkg -i ${GRAFANA_PACK} && rm -f ${GRAFANA_PACK}
 
 EXPOSE 3000
-WORKDIR ${GRAFANA_HOME}
+WORKDIR ${GF_HOME}
 
 COPY ./docker-entrypoint.sh /bin/docker-entrypoint.sh
 ENTRYPOINT ["/bin/docker-entrypoint.sh"]

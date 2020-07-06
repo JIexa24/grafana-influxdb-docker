@@ -1,15 +1,12 @@
 version: "2.1"
 services:
   grafana:
-    image: r9odt/grafana:${grafana_version}
+    image: grafana/grafana:${grafana_version}
     container_name: git_grafana
     hostname: grafana
     restart: always
-    environment:
-      GRAFANA_INSTALL_PLUGINS: vertamedia-clickhouse-datasource
-      GF_RENDERING_SERVER_URL: http://grafana_renderer:8081/render
-      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
-      GF_LOG_FILTERS: rendering:debug
+    env_file:
+      - grafana.env
     ports:
       - "82:3000/tcp"
     volumes:

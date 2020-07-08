@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   grafana:
-    image: grafana/grafana:${grafana_version}
+    image: ${grafana_image}
     container_name: git_grafana
     hostname: grafana
     restart: always
@@ -20,7 +20,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.2
   influx:
-    image: r9odt/influx:${influx_version}
+    image: ${influx_image}
     container_name: git_influx
     hostname: influx
     restart: always
@@ -33,7 +33,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.3
   telegraf:
-    image: r9odt/telegraf:${telegraf_version}
+    image: ${telegraf_image}
     container_name: git_telegraf
     hostname: docker-telegraf
     restart: always
@@ -45,7 +45,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.4
   grafana_mariadb:
-    image: mariadb:${mariadb_version}
+    image: ${mariadb_image}
     container_name: git_grafana_mariadb
     hostname: mariadb
     restart: always
@@ -57,7 +57,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.5
   grafana_renderer:
-    image: grafana/grafana-image-renderer:latest
+    image: grafana/grafana-image-renderer:2.0.0
     container_name: git_grafana_renderer
     hostname: renderer
     restart: always

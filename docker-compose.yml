@@ -45,7 +45,7 @@ services:
       network_1:
         ipv4_address: 10.6.0.4
   grafana_mariadb:
-    image: r9odt/mariadb:${mariadb_version}
+    image: mariadb:${mariadb_version}
     container_name: git_grafana_mariadb
     hostname: mariadb
     restart: always

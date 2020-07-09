@@ -49,6 +49,8 @@ services:
     container_name: git_grafana_mariadb
     hostname: mariadb
     restart: always
+    env_file:
+      - mariadb.env
     volumes:
       - "./mariadb/etc/mysql/mariadb.cnf:/etc/mysql/mariadb.cnf"
       - "./mariadb/etc/mysql/mariadb.conf.d:/etc/mysql/mariadb.conf.d"
